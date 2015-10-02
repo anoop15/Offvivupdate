@@ -52,11 +52,11 @@ public class DriverScript {
 	}
 
 	public static void main(String[] args) throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		FileInputStream fs = new FileInputStream("/Users/anandmahajan/Desktop/Anoop/VivinoWorkspace/Vivino_web/config.properties");
+		FileInputStream fs = new FileInputStream("D:\\GIT\\config.properties");
 		CONFIG = new Properties();
 		CONFIG.load(fs);
 
-		fs = new FileInputStream("/Users/anandmahajan/Desktop/Anoop/VivinoWorkspace/Vivino_web/or.properties");
+		fs = new FileInputStream("D:\\GIT\\or.properties");
 		OR = new Properties();
 		OR.load(fs);
 
@@ -70,15 +70,16 @@ public class DriverScript {
 		APP_LOGS.debug("Properties loaded. Starting testing");
 		APP_LOGS.debug("Intialize Suite xlsx");
 
-		suiteXLS = new Xls_Reader("/Users/anandmahajan/Desktop/Anoop/VivinoWorkspace/Vivino_web/Suite.xlsx");
+		suiteXLS = new Xls_Reader("D:\\GIT\\Suite.xlsx");
 
 		for (currentSuiteID = 2; currentSuiteID <= suiteXLS.getRowCount(Constants.TEST_SUITE_SHEET); currentSuiteID++) {
 			APP_LOGS.debug(suiteXLS.getCellData(Constants.TEST_SUITE_SHEET, Constants.Test_Suite_ID, currentSuiteID) + " -- " + suiteXLS.getCellData("Test Suite", "Runmode", currentSuiteID));
 			// System.out.println(suiteXLS.getCellData(Constants.TEST_SUITE_SHEET, Constants.Test_Suite_ID, currentSuiteID)+" -- "+ suiteXLS.getCellData("Test Suite", "Runmode", currentSuiteID));
+			currentTestSuite=suiteXLS.getCellData(Constants.TEST_SUITE_SHEET, Constants.Test_Suite_ID, currentSuiteID);
 			if (suiteXLS.getCellData(Constants.TEST_SUITE_SHEET, Constants.RUNMODE, currentSuiteID).equals(Constants.RUNMODE_YES)) {
 				// APP_LOGS.debug("******Executing the Suite******"+suiteXLS.getCellData(Constants.TEST_SUITE_SHEET, Constants.Test_Suite_ID, currentSuiteID)); // Sheet name , Col name, Row no.
-				currentTestSuiteXLS = new Xls_Reader("/Users/anandmahajan/Desktop/Anoop/VivinoWorkspace/Vivino_web/Login Page.xlsx");// Read the xls file which is mention in TSID in Suit.xls file
-																																		// Runmode=Y
+				//currentTestSuiteXLS = new Xls_Reader("/Users/anandmahajan/Desktop/Anoop/VivinoWorkspace/Vivino_web/Login Page.xlsx");// Read the xls file which is mention in TSID in Suit.xls file
+				currentTestSuiteXLS=new Xls_Reader("D:\\GIT\\"+currentTestSuite+".xlsx");																													// Runmode=Y
 				for (currentTestCaseID = 2; currentTestCaseID < currentTestSuiteXLS.getRowCount("Test Cases"); currentTestCaseID++) { // Its a loop for read data form Test cases sheet row wise
 																																		// APP_LOGS.debug(currentTestSuiteXLS.getCellData(Constants.TEST_CASES_SHEET,
 																																		// Constants.TCID, currentTestCaseID)+" --
